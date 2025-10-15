@@ -1,0 +1,22 @@
+
+---
+
+    ## 🧪 `.github/workflows/build.yml`
+    
+name: Build & Validate
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+
+      - name: List Docker Compose Files
+        run: find ./containers/* -name "docker-compose.yml"

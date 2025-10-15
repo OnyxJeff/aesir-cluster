@@ -1,0 +1,7 @@
+# Ignore backups, environment files, and runtime cruft
+*.tar.gz
+*.env
+logs/
+tmp/
+*.pid
+*.sock

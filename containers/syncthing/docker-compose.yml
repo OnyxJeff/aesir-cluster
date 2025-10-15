@@ -1,0 +1,27 @@
+services:
+  syncthing:
+    image: lscr.io/linuxserver/syncthing:latest
+    container_name: syncthing
+    hostname: ${HOSTNAME}
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    volumes:
+      - ${USERDIR}/docker/syncthing/config:/config
+      - ${USERDIR}/docker/syncthing/data:/data
+      - /mnt:/mnt:rw  # Optional — for syncing external storage
+    ports:
+      - 8384:8384     # Web UI
+      - 22000:22000/tcp
+      - 22000:22000/udp
+      - 21027:21027/udp  # Local discovery
+    restart: unless-stopped
+    networks:
+      - internal
+    env_file:
+      - ../../env/syncthing.env
+
+networks:
+  internal:
+    driver: bridge

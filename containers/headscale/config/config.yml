@@ -1,0 +1,24 @@
+server_url: https://headscale.onyxnet.live
+listen_addr: 0.0.0.0:8080
+
+db_type: sqlite3
+db_path: /var/lib/headscale/db.sqlite
+
+private_key_path: /var/lib/headscale/private.key
+noise:
+  private_key_path: /var/lib/headscale/noise_private.key
+
+ip_prefixes:
+  - 100.64.0.0/10
+
+derp:
+  auto_update: true
+
+dns_config:
+  base_domain: onyxnet.lan
+  nameservers:
+    - 1.1.1.1
+    - 8.8.8.8
+
+log:
+  level: info
