@@ -1,18 +1,18 @@
-# ha-aesir: High Availability Cluster for Vital Services
+# aesir-cluster: High Availability Cluster for Vital Services
 
-![Build Status](https://github.com/OnyxJeff/ha-aesir/actions/workflows/build.yml/badge.svg)
+![Build Status](https://github.com/OnyxJeff/aesir-cluster/actions/workflows/build.yml/badge.svg)
 ![Maintenance](https://img.shields.io/maintenance/yes/2025.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
-![GitHub release](https://img.shields.io/github/v/release/OnyxJeff/ha-aesir)
-![Issues](https://img.shields.io/github/issues/OnyxJeff/ha-aesir)
+![GitHub release](https://img.shields.io/github/v/release/OnyxJeff/aesir-cluster)
+![Issues](https://img.shields.io/github/issues/OnyxJeff/aesir-cluster)
 
 ## 📦 Project Overview
 This repository manages the high availability (HA) setup of the Aesir cluster — a 3-node Proxmox-based infrastructure for vital services. It uses LXC containers and VMs to run and replicate critical apps across Aesir-1, Aesir-2, and Aesir-3.
 
 ## 🖥️ Nodes
-- `ha-aesir-1` – Primary node (initial deployments)
-- `ha-aesir-2` – Secondary node (HA replication/failover)
-- `ha-aesir-3` – Tertiary node (HA replication/failover)
+- `aesir-1` – Primary node (initial deployments)
+- `aesir-2` – Secondary node (HA replication/failover)
+- `aesir-3` – Tertiary node (HA replication/failover)
 
 ## 🧱 Containerized/Virtual Services
 | Service              | LXC Container Name   | HA Role          | Notes                            |
