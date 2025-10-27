@@ -3,72 +3,87 @@
 ![Build Status](https://github.com/OnyxJeff/aesir-cluster/actions/workflows/build.yml/badge.svg)
 ![Maintenance](https://img.shields.io/maintenance/yes/2025.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
-![GitHub release](https://img.shields.io/github/v/release/OnyxJeff/aesir-cluster)
+![GitHub Release](https://img.shields.io/github/v/release/OnyxJeff/aesir-cluster)
 ![Issues](https://img.shields.io/github/issues/OnyxJeff/aesir-cluster)
 
 ## 📦 Project Overview
-This repository manages the high availability (HA) setup of the Aesir cluster — a 3-node Proxmox-based infrastructure for vital services. It uses LXC containers and VMs to run and replicate critical apps across Aesir-1, Aesir-2, and Aesir-3.
+`aesir-cluster` is a 3-node Proxmox high availability (HA) infrastructure for vital services. It runs and replicates LXC containers and VMs across **Aesir-1**, **Aesir-2**, and **Aesir-3**, ensuring uptime and reliability for critical apps in the homelab.
 
-## 🖥️ Nodes
-- `aesir-1` – Primary node (initial deployments)
-- `aesir-2` – Secondary node (HA replication/failover)
+## 🖥️ Nodes / Hosts
+- `aesir-1` – Primary node (initial deployments)  
+- `aesir-2` – Secondary node (HA replication/failover)  
 - `aesir-3` – Tertiary node (HA replication/failover)
 
-## 🧱 Containerized/Virtual Services
-| Service              | LXC Container Name   | HA Role          | Notes                            |
-| -------------------- | -------------------- | ---------------- | -------------------------------- |
-| Authelia             | `svc-vor`            | Active           | 2FA Auth                         |
-| Vaultwarden          | `svc-freya`          | Active/Failover  | Self-hosted Password Manager     |
-| Mealie               | `svc-idunn`          | Active           | Self-hosted Recipe Manager       |
-| Beszel               | `svc-draugr`         | Active           | Monitoring Server                |
-| Firefly III          | `svc-hodr`           | Active           | Budgeting Software               |
-| Pelican Panel        | `svc-thor`           | Active           | Gaming Server Host               |
-| Gitea                | `svc-urd`            | Active/Failover  | Self-hosted Git                  |
-| HomeBox              | `svc-sif`            | Active           | Inventory Management             |
-| ConvertX             | `svc-svipdagr`       | Active           | File Conversion                  |
-| Nginx Proxy Manager  | `svc-gjallarhorn`    | Active/Failover  | Reverse proxy for services       |
-| Portainer - VM       | `svc-bragi`          | Active/Failover  | Sonarr, Radarr, etc.             |
+## 🧰 Containerized / Virtual Services
 
-## 🔐 Secrets Management
-- All sensitive variables are stored in `.env` files (excluded by `.gitignore`)
-- Public templates are stored in `env/` as `.env.example` files
+| Service              | Container Name       | Role / Notes                        |
+|--------------------- |--------------------- |------------------------------------ |
+| Authelia             | `svc-vor`            | 2FA authentication service          |
+| Vaultwarden          | `svc-freya`          | Self-hosted password manager (HA)   |
+| Mealie               | `svc-idunn`          | Recipe management                   |
+| Beszel               | `svc-draugr`         | Monitoring server                   |
+| Firefly III          | `svc-hodr`           | Budgeting software                  |
+| Pelican Panel        | `svc-thor`           | Gaming server host                  |
+| Gitea                | `svc-urd`            | Self-hosted Git (HA)                |
+| HomeBox              | `svc-sif`            | Inventory management                |
+| ConvertX             | `svc-svipdagr`       | File conversion                     |
+| Nginx Proxy Manager  | `svc-gjallarhorn`    | Reverse proxy (HA)                  |
+| Portainer - VM       | `svc-bragi`          | Sonarr/Radarr container management  |
+
+## 🔐 Secrets / Configuration
+- Sensitive variables are stored in `.env` files (excluded by `.gitignore`)  
+- Public templates provided in `env/` as `.env.example`  
 
 ## 📂 Directory Structure
-```
-ha-aesir/
+```text
+aesir-cluster/
 ├── containers/
-│   ├── gitea/
-│   │   ├── lxc-config.yaml
-│   │   └── docker-compose.yml
-│   ├── netboot-xyz/
-│   │   └── ...
-│   └── ...
+│ ├── Authelia/
+│ │ ├── lxc-config.conf
+│ │ └── README.md
+│ ├── Beszel/
+│ │ └── ...
+│ └── ...
 ├── env/
-│   ├── gitea.env.example
-│   └── media-stack.env.example
+│ ├── gitea.env.example
+│ └── media-stack.env.example
+├── hardware/
+│ └── parts-list.md
+├── images/
+│ ├── <container>.png
+│ ├── <container>.png
+│ ├── ...
+│ └── ...
 ├── scripts/
-│   ├── deploy.sh
-│   └── backup.sh
+│ ├── deploy.sh
+│ └── backup.sh
 ├── .gitignore
 └── README.md
 ```
 
+
 ## 🚀 Deployment
-Use `scripts/LXC/<container-name>/deploy.sh` to:
-- Create the container on the preferred HA node
-- Apply configs from `docker-compose.yml`
-- Register the container with Proxmox HA
+Use `scripts/LXC/<container-name>/deploy.sh` to:  
+1. Create the container on the preferred HA node  
+2. Apply configuration from `docker-compose.yml`  
+3. Register the container with Proxmox HA  
 
-## 🛡️ Failover
-Failover is managed using Proxmox’s built-in Replication. Some containers live on another node in case of failure and will auto-start in the event it's "home" node goes down.
+## 🛡️ Failover / Redundancy
+Proxmox replication ensures high availability:  
+- Containers are replicated to secondary nodes  
+- Auto-start occurs if the primary node goes down  
 
-## 📌 TODO
-- [ ] Add Prometheus & node_exporter containers
-- [ ] Add Uptime Kuma to HA (migrate from Mimir)
-- [ ] Add GitHub Action to validate LXC configs
-- [ ] Add backup + recovery automation for all containers
+## 💾 Backup / Storage
+- Proxmox replication plus manual backups via `scripts/backup.sh`  
+- `.env` templates stored for safe redeployment  
+
+## 📌 TODO / Future Work
+- [ ] Add Prometheus & node_exporter containers  
+- [ ] Add Uptime Kuma to HA (migrate from Mimir)  
+- [ ] Add GitHub Action to validate LXC configs  
+- [ ] Complete backup + recovery automation for all containers  
 
 ---
 
-📬 Maintained By
+📬 Maintained by  
 Jeff M. • [@OnyxJeff](https://github.com/OnyxJeff)
