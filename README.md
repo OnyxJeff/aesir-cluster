@@ -6,13 +6,19 @@
 ![GitHub Release](https://img.shields.io/github/v/release/OnyxJeff/aesir-cluster)
 ![Issues](https://img.shields.io/github/issues/OnyxJeff/aesir-cluster)
 
-## 📦 Project Overview
-`aesir-cluster` is a 3-node Proxmox high availability (HA) infrastructure for vital services. It runs and replicates LXC containers and VMs across **Aesir-1**, **Aesir-2**, and **Aesir-3**, ensuring uptime and reliability for critical apps in the homelab.
+Aesir is the high-availability powerhouse of the homelab — a 3-node cluster built to run the services that actually matter.  
+If Vanir is the plucky sidekick, Aesir is the fully armored tank that volunteers for every dangerous job.
 
-## 🖥️ Nodes / Hosts
-- `aesir-1` – Primary node (initial deployments)  
-- `aesir-2` – Secondary node (HA replication/failover)  
-- `aesir-3` – Tertiary node (HA replication/failover)
+### 🧭 Purpose
+Aesir houses critical services, media orchestration tools, authentication, financial management, dashboards, Git hosting, and more.  
+If a service going down would make you swear loudly, it probably lives here.
+
+### 🏗️ Current Highlights
+- 3-node HA cluster (because redundancy is a lifestyle)
+- Full “darr” media automation stack running inside a Portainer VM
+- Primary LXC lineup: Vaultwarden, NPM, Mealie, Beszel, Firefly III, Gitea, Pelican-Panel, HomeBox, ConvertX
+- Designed to be stable, resilient, and only occasionally dramatic
+
 
 ## 🧰 Containerized / Virtual Services
 
