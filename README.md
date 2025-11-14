@@ -1,4 +1,4 @@
-# aesir-cluster: High Availability Cluster for Vital Services
+# Aesir-Cluster
 
 ![Build Status](https://github.com/OnyxJeff/aesir-cluster/actions/workflows/build.yml/badge.svg)
 ![Maintenance](https://img.shields.io/maintenance/yes/2025.svg)
