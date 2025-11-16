@@ -63,10 +63,16 @@ aesir-cluster/
 ├── scripts/
 │ ├── deploy.sh
 │ └── backup.sh
+├── VMs/
+│ ├── Future_VM/
+│ │ ├── vm-config.conf
+│ │ └── README.md
+│ ├── Future_VM(1)/
+│ │ └── ...
+│ └── ...
 ├── .gitignore
 └── README.md
 ```
-
 
 ## 🚀 Deployment
 Use `scripts/LXC/<container-name>/deploy.sh` to:  
