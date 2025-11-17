@@ -67,7 +67,7 @@ aesir-cluster/
 │ ├── Future_VM/
 │ │ ├── vm-config.conf
 │ │ └── README.md
-│ ├── Future_VM(1)/
+│ ├── Portainer/
 │ │ └── ...
 │ └── ...
 ├── .gitignore
