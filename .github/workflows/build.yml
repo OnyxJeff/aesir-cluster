@@ -1,8 +1,4 @@
-
 ---
-
-    ## 🧪 `.github/workflows/build.yml`
-    
 name: Build & Validate
 
 on:
