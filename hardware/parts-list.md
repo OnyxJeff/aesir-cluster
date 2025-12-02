@@ -1,6 +1,8 @@
 # ⚔️ Aesir-cluster: HP Goodness! HP ELITEDESK 800 G5 MINI
 
-## There are 3 of these that are identical
+### There are 3 of these that are identical
+
+---
 
 ## 🧠 CPU: Intel i5-9500t (6c/6t)
 - 2.2 GHz base, 3.7 GHz turbo
