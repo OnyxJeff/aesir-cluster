@@ -37,15 +37,15 @@ Right now this is only running Portainer, but the containers inside are very imp
 ## 🚀 Usage
 Normal ports for each:
 | App | Port | Access |
-|---------------|------------|----------------------------------|
-| Sonarr        | 8989       | http://<ip-address or FQDM>:8989 |
-| Radarr        | 7878       | http://<ip-address or FQDM>:7878 |
-| Tautulli      | 8181       | http://<ip-address or FQDM>:8181 |
-| Prowlarr      | 9696       | http://<ip-address or FQDM>:9696 |
-| Overseerr     | 5055       | http://<ip-address or FQDM>:5055 |
-| Jackett       | 9117       | http://<ip-address or FQDM>:9117 |
-| Flaresolverr  | 8191       | http://<ip-address or FQDM>:8191 |
-| Homarr        | 7575       | http://<ip-address or FQDM>:7575 |
+|---------------|--------|------------------------------------|
+| Sonarr        | `8989` | `http://<ip-address or FQDM>:8989` |
+| Radarr        | `7878` | `http://<ip-address or FQDM>:7878` |
+| Tautulli      | `8181` | `http://<ip-address or FQDM>:8181` |
+| Prowlarr      | `9696` | `http://<ip-address or FQDM>:9696` |
+| Overseerr     | `5055` | `http://<ip-address or FQDM>:5055` |
+| Jackett       | `9117` | `http://<ip-address or FQDM>:9117` |
+| Flaresolverr  | `8191` | `http://<ip-address or FQDM>:8191` |
+| Homarr        | `7575` | `http://<ip-address or FQDM>:7575` |
 
 ## 🔐 Configuration
 - Environment variables and secrets are set via the helper script and `.settings` files  
