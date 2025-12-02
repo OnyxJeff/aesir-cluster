@@ -3,7 +3,7 @@
 ![Logo](../../images/portainer.png) <!-- reference centralized image -->
 
 ## 📦 Overview
-Brief description of the service and its role in the cluster. Include why it exists and any key functionality.
+Portainer is my docker compose hub of choice. I run all of my media stack in this VM for shared resources, networking, and mounted storage.
 
 ## 🖥️ Deployment
 - Created via Proxmox Helper Script: 
