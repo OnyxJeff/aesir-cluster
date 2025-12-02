@@ -37,6 +37,7 @@ Right now this is only running Portainer, but the containers inside are very imp
 ## 🚀 Usage
 Normal ports for each:
 | ---- App ---- | -- Port -- | ------------ Access ------------ |
+|------         | ---------- | -------------------------------- |
 | Sonarr        | 8989       | http://<ip-address or FQDM>:8989 |
 | Radarr        | 7878       | http://<ip-address or FQDM>:7878 |
 | Tautulli      | 8181       | http://<ip-address or FQDM>:8181 |
