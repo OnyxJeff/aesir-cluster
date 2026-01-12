@@ -1,7 +1,7 @@
 # Aesir-Cluster
 
 ![Build Status](https://github.com/OnyxJeff/aesir-cluster/actions/workflows/build.yml/badge.svg)
-![Maintenance](https://img.shields.io/maintenance/yes/2025.svg)
+![Maintenance](https://img.shields.io/maintenance/yes/2026.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 ![GitHub Release](https://img.shields.io/github/v/release/OnyxJeff/aesir-cluster)
 ![Issues](https://img.shields.io/github/issues/OnyxJeff/aesir-cluster)
@@ -24,17 +24,17 @@ If a service going down would make you swear loudly, it probably lives here.
 
 | Service              | Container Name       | Role / Notes                        |
 |--------------------- |--------------------- |------------------------------------ |
-| Authelia             | `svc-vor`            | 2FA authentication service          |
-| Vaultwarden          | `svc-freya`          | Self-hosted password manager (HA)   |
-| Mealie               | `svc-idunn`          | Recipe management                   |
-| Beszel               | `svc-draugr`         | Monitoring server                   |
-| Firefly III          | `svc-hodr`           | Budgeting software                  |
-| Pelican Panel        | `svc-thor`           | Gaming server host                  |
-| Gitea                | `svc-urd`            | Self-hosted Git (HA)                |
-| HomeBox              | `svc-sif`            | Inventory management                |
-| ConvertX             | `svc-svipdagr`       | File conversion                     |
-| Nginx Proxy Manager  | `svc-gjallarhorn`    | Reverse proxy (HA)                  |
 | Portainer - VM       | `svc-bragi`          | Sonarr/Radarr container management  |
+| Vaultwarden          | `svc-freya`          | Self-hosted password manager (HA)   |
+| HomeBox              | `svc-sif`            | Inventory management                |
+| Firefly III          | `svc-hodr`           | Budgeting software                  |
+| Gitea                | `svc-urd`            | Self-hosted Git (HA)                |
+| Pelican Panel        | `svc-thor`           | Gaming server host                  |
+| ConvertX             | `svc-svipdagr`       | File conversion                     |
+| Beszel               | `svc-draugr`         | Monitoring server                   |
+| Mealie               | `svc-idunn`          | Recipe management                   |
+| Nginx Proxy Manager  | `svc-gjallarhorn`    | Reverse proxy (HA)                  |
+| NetBox               | `svc-saga`           | Network observability               |
 
 ## 🔐 Secrets / Configuration
 - Sensitive variables are stored in `.env` files (excluded by `.gitignore`)  

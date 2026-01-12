@@ -3,7 +3,7 @@
 ![Screenshot](../../images/netbox.png)
 
 ## 📦 Overview
-Mealie is a self-hosted recipe manager and meal planner for organizing and sharing recipes across the household.
+NetBox is the authoritative source of truth for my homelab network—IPAM, DCIM, racks, devices, and their relationships. One place, accurate data, zero chaos.
 
 ## 🖥️ Deployment
 - Created via Proxmox Helper Script: `netbox-ct.sh`
@@ -12,18 +12,22 @@ Mealie is a self-hosted recipe manager and meal planner for organizing and shari
 - CPU / RAM / Storage: `2 vCPU / 2GB / 4GB`
 - Network: Configured via script (bridge and static IP settings)
 
-## 🧰 Services
-- Source of truth for everything on your network
-- Network automation and observability tools
+## 🧰 What It Does
+- Centralized IPAM, DCIM, and infrastructure inventory
+- Models physical and logical network relationships
+- Foundation for automation, documentation, and visibility
 
 ## 🚀 Usage
-- Access via `http://<ip_address>:8000`
-- roll out configurations, monitor changes, and accelerate operations across the enterprise
+- Access via `https://<ip_address>`
+- Track infrastructure changes, validate configs, and drive automation with confidence
 
 ## 🔐 Configuration
-- Environment variables and secrets are set via the helper script and `.settings` files
-  - examples in `lxc-config.conf`
-- Configuration files stored inside `/config` volume mounted in the container 
+- Environment variables and secrets are provisioned by the helper script and `.settings` files  
+  - Example references in `lxc-config.conf`
+- Persistent configuration stored in the `/config` volume mounted in the container
 
 ## 📌 Notes / TODO
-- Enable SSO via Authelia
+- Lock down access via Cloudflare Tunnel
+- Back up NetBox data off the Proxmox host
+- Clean up tags, roles, and naming conventions
+- Explore plugins once core data is stable

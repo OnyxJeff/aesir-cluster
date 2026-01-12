@@ -8,11 +8,11 @@ Portainer is my docker compose hub of choice. I run all of my media stack in thi
 ## 🖥️ Deployment
 - Created via Proxmox Helper Script: 
 ```bash
-bash -c "$(curl -fsSL https://raw.githubusercontent.com/community-scripts/ProxmoxVE/main/vm/ubuntu2504-vm.sh)"
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/community-scripts/ProxmoxVE/main/vm/ubuntu2404-vm.sh)"
 ```
 - CT/VM ID: `10101`
-- OS / Template: `Ubuntu 25.04`
-- CPU / RAM / Storage: `4 vCPU / 12GB / 80GB`
+- OS / Template: `Ubuntu 24.04.3 LTS`
+- CPU / RAM / Storage: `4 vCPU / 12GB / 64GB`
 - Network: `vmbr0`
 
 ## 🧰 Services / Components
