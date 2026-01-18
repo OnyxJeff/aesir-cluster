@@ -52,8 +52,7 @@ A B C D E
 
 | Service / Container   | Type | Env | Dept | Seq | 5-Digit ID |
 |----------------------|------|-----|------|-----|------------|
-| Authelia             | CT   | Prod| 0    | 01  | 20001      |
-| Vaultwarden          | CT   | Prod| 0    | 02  | 20002      |
+| Vaultwarden          | CT   | Prod| 0    | 02  | 20001      |
 | Mimir (Grafana)      | CT   | Prod| 3    | 01  | 20301      |
 | Loki                 | CT   | Prod| 3    | 02  | 20302      |
 | Nextcloud            | CT   | Prod| 4    | 01  | 20401      |
@@ -64,7 +63,7 @@ A B C D E
 | Home Assistant       | CT   | Prod| 6    | 01  | 20601      |
 | Nginx Proxy Manager  | CT   | Prod| 8    | 01  | 20801      |
 | ConvertX             | CT   | Exp | 2    | 01  | 21201      |
-| Portainer VM         | VM   | Prod| 5    | 01  | 10051      |
+| Portainer VM         | VM   | Prod| 5    | 01  | 10501      |
 
 ---
 
