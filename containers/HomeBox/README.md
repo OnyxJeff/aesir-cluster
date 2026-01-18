@@ -21,9 +21,7 @@ HomeBox is a self-hosted inventory management platform used for cataloging home 
 - Add categories, items, and custom fields for tracking
 
 ## 🔐 Configuration
-- Environment variables and secrets are set via the helper script and `.settings` files
-  - examples in `lxc-config.conf`
-- Configuration files stored inside `/config` volume mounted in the container 
+- Environment variables and secrets are set via the helper script and `*.vars` files
 
 ## 📌 Notes / TODO
 - Integrate with Home Assistant sensors

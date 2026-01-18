@@ -38,21 +38,17 @@ If a service going down would make you swear loudly, it probably lives here.
 
 ## 🔐 Secrets / Configuration
 - Sensitive variables are stored in `.env` files (excluded by `.gitignore`)  
-- Public templates provided in `env/` as `.env.example`  
+- Public templates provided in `vars/` as `.vars.example`  
 
 ## 📂 Directory Structure
 ```text
 aesir-cluster/
 ├── containers/
-│ ├── Authelia/
-│ │ ├── lxc-config.conf
-│ │ └── README.md
 │ ├── Beszel/
+│ │ └── README.md
+│ ├── ConvertX/
 │ │ └── ...
 │ └── ...
-├── env/
-│ ├── gitea.env.example
-│ └── media-stack.env.example
 ├── hardware/
 │ └── parts-list.md
 ├── images/
@@ -61,33 +57,43 @@ aesir-cluster/
 │ ├── ...
 │ └── ...
 ├── scripts/
-│ ├── deploy.sh
-│ └── backup.sh
+│ ├── <container>-ct.sh
+│ ├── <container>-ct.sh
+│ ├── ...
+│ └── ...
+├── vars/
+│ ├── <container>.vars.example
+│ ├── <container>.vars.example
+│ └── ...
 ├── VMs/
 │ ├── Future_VM/
-│ │ ├── vm-config.conf
 │ │ └── README.md
 │ ├── Portainer/
-│ │ └── ...
+│ │ ├── docker-compose.yml
+│ │ ├── media-stack.env.example
+│ │ └── README.md
 │ └── ...
 ├── .gitignore
-└── README.md
+├── ID-naming-scheme.md
+├── LICENSE
+├── README.md
+└── script-runner.sh 
 ```
 
 ## 🚀 Deployment
-Use `scripts/LXC/<container-name>/deploy.sh` to:  
+Use `~aesir-cluster/script-runner.sh` to:  
 1. Create the container on the preferred HA node  
-2. Apply configuration from `docker-compose.yml`  
+2. Apply configuration from your preconfigured `*.vars`
 3. Register the container with Proxmox HA  
 
 ## 🛡️ Failover / Redundancy
-Proxmox replication ensures high availability:  
-- Containers are replicated to secondary nodes  
-- Auto-start occurs if the primary node goes down  
+Proxmox replication ensures high availability:
+- Containers are replicated to secondary nodes
+- Auto-start occurs if the primary node goes down
 
 ## 💾 Backup / Storage
-- Proxmox replication plus manual backups via `scripts/backup.sh`  
-- `.env` templates stored for safe redeployment  
+- Proxmox replication across nodes plus automatic backups via Proxmox Backup Server
+- `.vars` templates stored for safe redeployment  
 
 ## 📌 TODO / Future Work
 - [ ] Add Prometheus & node_exporter containers  

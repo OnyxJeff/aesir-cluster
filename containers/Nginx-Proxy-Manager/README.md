@@ -21,9 +21,7 @@ Nginx Proxy Manager (NPM) is a reverse proxy management UI for routing and secur
 - Add and manage proxy hosts, redirections, and streams
 
 ## 🔐 Configuration
-- Environment variables and secrets are set via the helper script and `.settings` files
-  - examples in `lxc-config.conf`
-- Configuration files stored inside `/config` volume mounted in the container 
+- Environment variables and secrets are set via the helper script and `*.vars` files
 
 ## 📌 Notes / TODO
 - Set Authelia as authentication provider for admin interface

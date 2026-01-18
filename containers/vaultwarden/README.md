@@ -21,9 +21,7 @@ Vaultwarden is a lightweight self-hosted password manager compatible with Bitwar
 - Connect with Bitwarden browser or mobile apps
 
 ## 🔐 Configuration
-- Environment variables and secrets are set via the helper script and `.settings` files
-  - examples in `lxc-config.conf`
-- Configuration files stored inside `/config` volume mounted in the container 
+- Environment variables and secrets are set via the helper script and `*.vars` files
 
 ## 📌 Notes / TODO
 - Add SMTP configuration for password resets

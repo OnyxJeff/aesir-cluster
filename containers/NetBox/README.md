@@ -22,9 +22,7 @@ NetBox is the authoritative source of truth for my homelab network—IPAM, DCIM,
 - Track infrastructure changes, validate configs, and drive automation with confidence
 
 ## 🔐 Configuration
-- Environment variables and secrets are provisioned by the helper script and `.settings` files  
-  - Example references in `lxc-config.conf`
-- Persistent configuration stored in the `/config` volume mounted in the container
+- Environment variables and secrets are set via the helper script and `*.vars` files
 
 ## 📌 Notes / TODO
 - Lock down access via Cloudflare Tunnel

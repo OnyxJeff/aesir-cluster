@@ -21,9 +21,7 @@ Pelican Panel is a self-hosted game server management platform designed for runn
 - Configure games, servers, and user roles
 
 ## 🔐 Configuration
-- Environment variables and secrets are set via the helper script and `.settings` files
-  - examples in `lxc-config.conf`
-- Configuration files stored inside `/config` volume mounted in the container 
+- Environment variables and secrets are set via the helper script and `*.vars` files
 
 ## 📌 Notes / TODO
 - Enable WebSocket SSL for Wings agents

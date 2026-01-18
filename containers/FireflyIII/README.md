@@ -21,9 +21,7 @@ Firefly III is a self-hosted personal finance manager designed to help track exp
 - Import transactions, categorize budgets, and generate reports
 
 ## 🔐 Configuration
-- Environment variables and secrets are set via the helper script and `.settings` files
-  - examples in `lxc-config.conf`
-- Configuration files stored inside `/config` volume mounted in the container 
+- Environment variables and secrets are set via the helper script and `*.vars` files
 
 ## 📌 Notes / TODO
 - Set up automated database backups via Proxmox Backup Server

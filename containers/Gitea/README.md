@@ -21,9 +21,7 @@ Gitea is a lightweight, self-hosted Git service similar to GitHub. It manages co
 - Create organizations and repos for local projects
 
 ## 🔐 Configuration
-- Environment variables and secrets are set via the helper script and `.settings` files
-  - examples in `lxc-config.conf`
-- Configuration files stored inside `/config` volume mounted in the container 
+- Environment variables and secrets are set via the helper script and `*.vars` files 
 
 ## 📌 Notes / TODO
 - Configure OAuth login via Authelia for unified access
