@@ -81,10 +81,14 @@ aesir-cluster/
 ```
 
 ## 🚀 Deployment
+1. move the contents of the `vars/` folder to correct folder with the following command:
+```bash
+mv ~aesir-cluster/vars/* /usr/local/community-scripts/defaults/
+```
 Use `~aesir-cluster/script-runner.sh` to:  
-1. Create the container on the preferred HA node  
-2. Apply configuration from your preconfigured `*.vars`
-3. Register the container with Proxmox HA  
+2. Create the container on the preferred HA node  
+3. Apply configuration from your preconfigured `*.vars`
+4. Register the container with Proxmox HA  
 
 ## 🛡️ Failover / Redundancy
 Proxmox replication ensures high availability:
