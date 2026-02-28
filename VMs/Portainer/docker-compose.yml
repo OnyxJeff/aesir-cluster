@@ -74,15 +74,16 @@ services:
       - PGID=${PGID}
       - TZ=${TZ}
 
-  overseerr:
-    image: lscr.io/linuxserver/overseerr:latest
-    container_name: overseerr
+  seerr:
+    image: ghcr.io/seerr-team/seerr:latest
+    init: true
+    container_name: seerr
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
       - TZ=${TZ}
     volumes:
-      - ${USERDIR}/docker/overseer/config:/config
+      - ${USERDIR}/docker/overseer/config:/app/config
       - /mnt:/media
     ports:
       - 5055:5055
@@ -103,8 +104,8 @@ services:
     restart: unless-stopped
     
   homarr:
-    container_name: homarr
     image: ghcr.io/homarr-labs/homarr:latest
+    container_name: homarr
     restart: unless-stopped
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock # Optional, only if you want docker integration
@@ -115,7 +116,7 @@ services:
       - '7575:7575'
 
   flaresolverr:
-    image:      ghcr.io/flaresolverr/flaresolverr:latest
+    image: ghcr.io/flaresolverr/flaresolverr:latest
     container_name: flaresolverr
     restart: unless-stopped
     environment:
