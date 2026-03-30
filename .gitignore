@@ -7,3 +7,4 @@ tmp/
 *.sock
 *.settings
 *.vars
+*.secret
