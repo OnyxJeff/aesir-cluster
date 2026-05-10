@@ -6,6 +6,8 @@
 ![GitHub Release](https://img.shields.io/github/v/release/OnyxJeff/aesir-cluster)
 ![Issues](https://img.shields.io/github/issues/OnyxJeff/aesir-cluster)
 
+![logo (not mine/borrowed)](../../images/aesir.png)
+
 Aesir is the high-availability powerhouse of the homelab — a 3-node cluster built to run the services that actually matter.  
 If Vanir is the plucky sidekick, Aesir is the fully armored tank that volunteers for every dangerous job.
 
