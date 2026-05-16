@@ -7,7 +7,7 @@ Pelican Panel is a self-hosted game server management platform designed for runn
 
 ## 🖥️ Deployment
 - Created via Proxmox Helper Script: `pelican-panel-ct.sh`
-- CT ID: `20101`
+- CT ID: `20701`
 - OS / Template: Debian-based LXC template (from script)
 - CPU / RAM / Storage: `2 vCPU / 1GB / 4GB`
 - Network: Configured via script (bridge and static IP settings)
