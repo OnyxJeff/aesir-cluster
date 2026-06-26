@@ -13,15 +13,27 @@ Grafana is a data visualization and monitoring platform that enables users to qu
 - Network: Configured via script (bridge and static IP settings)
 
 ## 🧰 Services
-- Inventory management UI
-- API for integrations with Home Assistant or Grafana
+- Web-based dashboard and visualization platform
+- Alerting and notification management
+- Data source integration (Prometheus, Loki, PostgreSQL, etc.)
+- Dashboard sharing and reporting
 
 ## 🚀 Usage
 - Access via `http://<ip_address>:3000`
-- Add categories, items, and custom fields for tracking
+- Log in with Grafana credentials
+- Configure data sources
+- Import or create dashboards
+- Configure alert rules and notification channels
 
 ## 🔐 Configuration
-- Environment variables and secrets are set via the helper script and `*.vars` files
+- Primary configuration file: `/etc/grafana/grafana.ini`
+- Data stored in: `/var/lib/grafana`
+- Logs stored in: `/var/log/grafana`
+- Additional settings may be managed through environment variables or container-specific configuration files
 
 ## 📌 Notes / TODO
-- Integrate with Home Assistant sensors
+- Create homelab overview dashboard
+- Import Proxmox monitoring dashboards
+- Configure Discord alert notifications
+- Add Home Assistant metrics
+- Create public-safe dashboards for status displays
