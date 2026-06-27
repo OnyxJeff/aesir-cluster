@@ -1,0 +1,171 @@
+networks:
+  monitoring:
+    driver: bridge
+
+services:
+
+  # -----------------------------
+  # PROMETHEUS
+  # -----------------------------
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    restart: unless-stopped
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+      - --storage.tsdb.path=/prometheus
+      - --storage.tsdb.retention.time=14d
+      - --storage.tsdb.retention.size=25GB
+    volumes:
+      - /$USERDIR/prometheus:/prometheus
+      - /$USERDIR/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    ports:
+      - "9090:9090"
+    networks:
+      - monitoring
+
+  # -----------------------------
+  # GRAFANA
+  # -----------------------------
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    restart: unless-stopped
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=uranium32
+      - GF_PATHS_DATA=/var/lib/grafana
+      - GF_SERVER_PORT=3000
+    volumes:
+      - /$USERDIR/grafana:/var/lib/grafana
+      - /$USERDIR/grafana/grafana.ini:/etc/grafana/grafana.ini:ro
+    ports:
+      - "3000:3000"
+    networks:
+      - monitoring
+
+  # -----------------------------
+  # BLACKBOX EXPORTER
+  # -----------------------------
+  blackbox:
+    image: prom/blackbox-exporter:latest
+    container_name: blackbox
+    restart: unless-stopped
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    volumes:
+      - /$USERDIR/blackbox/blackbox.yml:/etc/blackbox_exporter/config.yml:ro
+    ports:
+      - "9115:9115"
+    networks:
+      - monitoring
+
+  # -----------------------------
+  # PROXMOX EXPORTER
+  # -----------------------------
+  pve-exporter:
+    image: prompve/prometheus-pve-exporter:latest
+    container_name: pve-exporter
+    restart: unless-stopped
+    ports:
+      - "9221:9221"
+    networks:
+      - monitoring
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+      - PVE_USER=root@pam
+      - PVE_PASSWORD=uranium32
+      - PVE_HOST=10.100.0.30
+
+  # -----------------------------
+  # EXPORTARR (ARR METRICS)
+  # -----------------------------
+  sonarr-exporter:
+    image: ghcr.io/onedr0p/exportarr:latest
+    container_name: sonarr-exporter
+    command: ["sonarr"]
+    environment:
+      PORT: 9707
+      URL: "http://10.100.0.35:8989" # or; http://sonarr:8989
+      API_KEY: "f8ad3716ff2a43e8975bbf28c0effb10"
+    networks:
+      - monitoring
+    ports:
+      - "9707:9707"
+    restart: unless-stopped
+  radarr-exporter:
+    image: ghcr.io/onedr0p/exportarr:latest
+    container_name: radarr-exporter
+    command: ["radarr"]
+    environment:
+      PORT: 9708
+      URL: "http://10.100.0.35:7878" # or; http://radarr:7878
+      API_KEY: "f09e83d0c25f487eba425206051e2b71"
+    networks:
+      - monitoring
+    ports:
+      - "9708:9708"
+    restart: unless-stopped
+  prowlarr-exporter:
+    image: ghcr.io/onedr0p/exportarr:latest
+    container_name: prowlarr-exporter
+    command: ["prowlarr"]
+    environment:
+      PORT: 9710
+      URL: "http://10.100.0.35:9696" # or; http://prowlarr:8080
+      API_KEY: "b70e8b98988740df8519ddf936131901"
+      # PROWLARR__BACKFILL: true # optional
+      # PROWLARR__BACKFILL_SINCE_DATE: "2023-03-01" # optional
+    networks:
+      - monitoring
+    ports:
+      - "9710:9710"
+    restart: unless-stopped
+
+# -----------------------------
+# SPEEDTEST EXPORTER
+# -----------------------------
+  speedtest-exporter:
+    image: ghcr.io/miguelndecarvalho/speedtest-exporter:latest
+    container_name: speedtest-exporter
+    restart: unless-stopped
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+      - SPEEDTEST_SERVER=68386
+    ports:
+      - "9798:9798"
+    networks:
+      - monitoring
+
+# -----------------------------
+# GRAPHITE EXPORTER
+# -----------------------------
+  graphite:
+    image: graphiteapp/graphite-statsd:latest
+    container_name: graphite
+    restart: unless-stopped
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    ports:
+      - "8082:80"       # Graphite Web UI
+      - "2003-2004:2003-2004"  # Carbon TCP
+      - "2023-2024:2023-2024"  # Carbon UDP
+      - "8125:8125/udp"  # StatsD UDP
+      - "8126:8126"      # StatsD Admin
+    volumes:
+      - /$USERDIR/graphite:/opt/graphite/storage

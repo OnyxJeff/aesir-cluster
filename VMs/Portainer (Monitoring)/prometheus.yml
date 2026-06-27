@@ -1,0 +1,107 @@
+# my global config
+global:
+  scrape_interval:     30s # By default, scrape targets every 30 seconds.
+  evaluation_interval: 30s # By default, scrape targets every 30 seconds.
+  scrape_timeout: 10s # scrape_timeout is set to the global default (10s).
+
+# A scrape configuration containing exactly one endpoint to scrape:
+# Here it's Prometheus itself.
+scrape_configs:
+
+  - job_name: 'blackbox-http'
+    metrics_path: /probe
+    params:
+      module: [http_2xx]  # or "icmp"
+    static_configs:
+      - targets:
+        - https://google.com
+        - https://github.com
+        - https://cloudflare.com
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: blackbox:9115  # blackbox exporter address
+  
+  - job_name: 'blackbox-icmp'
+    scrape_interval: 30s
+    scrape_timeout: 15s
+    metrics_path: /probe
+    params:
+      module: [icmp_ping]
+    static_configs:
+      - targets:
+          - 8.8.4.4
+          - 8.8.8.8
+          - 1.1.1.1
+          - 1.0.0.1
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: blackbox:9115
+
+  - job_name: 'prometheus'
+    static_configs:
+      - targets:
+        - 'prometheus:9090'
+  
+  - job_name: 'speedtest'
+    metrics_path: /metrics
+    scrape_interval: 30m
+    scrape_timeout: 60s
+    static_configs:
+      - targets:
+        - 'speedtest-exporter:9798'
+
+  - job_name: 'prometheus-router'
+    static_configs:
+      - targets:
+        - '10.100.0.1:9100'
+
+  - job_name: 'homeassistant'
+    basic_auth:
+      username: admin
+      password: admin
+    static_configs:
+      - targets:
+        - 'svr-frigg.jotunheim.onyxnet.lan:9100'
+
+  - job_name: 'pihole'
+    metrics_path: /metrics
+    static_configs:
+      - targets:
+          - 'svr-odin.asgard.onyxnet.lan:9617'
+        labels:
+          role: 'primary'
+
+      - targets:
+          - 'svr-forseti.asgard.onyxnet.lan:9617'
+        labels:
+          role: 'backup'
+
+  - job_name: 'nodeexp'
+    static_configs:
+      - targets:
+        - 'svc-skadi.asgard.onyxnet.lan:9100'
+
+  - job_name: 'pve'
+    metrics_path: /pve
+    params:
+      module: [default]
+    static_configs:
+      - targets:
+          - 'svr-aesir1.asgard.onyxnet.lan:9221'
+          - 'svr-aesir2.asgard.onyxnet.lan:9221'
+          - 'svr-aesir3.asgard.onyxnet.lan:9221'
+        labels:
+          cluster: 'aesir'
+
+      - targets:
+          - 'svr-vanir1.asgard.onyxnet.lan:9221'
+        labels:
+          cluster: 'vanir'

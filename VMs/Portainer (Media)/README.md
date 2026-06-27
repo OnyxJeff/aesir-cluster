@@ -12,7 +12,7 @@ bash -c "$(curl -fsSL https://raw.githubusercontent.com/community-scripts/Proxmo
 ```
 - CT/VM ID: `10101`
 - OS / Template: `Ubuntu 24.04.3 LTS`
-- CPU / RAM / Storage: `4 vCPU / 12GB / 64GB`
+- CPU / RAM / Storage: `2 vCPU / 6GB / 40GB`
 - Network: `vmbr0`
 
 ## 🧰 Services / Components

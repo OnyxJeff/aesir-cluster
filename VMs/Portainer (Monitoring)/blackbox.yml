@@ -1,0 +1,15 @@
+modules:
+  http_2xx:
+    prober: http
+    timeout: 5s
+    http:
+      method: GET
+      valid_status_codes: []  # Empty means any 2xx is valid
+      follow_redirects: true
+      preferred_ip_protocol: ip4
+  icmp_ping:
+    prober: icmp
+    timeout: 5s
+    icmp:
+      preferred_ip_protocol: ip4
+      ip_protocol_fallback: true
