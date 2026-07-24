@@ -7,7 +7,7 @@ Unifi OS Server is the operating system that powers Ubiquiti's UniFi line of net
 
 ## 🖥️ Deployment
 - Created via Proxmox Helper Script: `unifi-ct.sh`
-- CT ID: `20803`
+- CT ID: `20804`
 - OS / Template: Debian-based LXC template (from script)
 - CPU / RAM / Storage: `2 vCPU / 4GB / 20GB`
 - Network: Configured via script (bridge and static IP settings)
