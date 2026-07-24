@@ -46,6 +46,10 @@ Normal ports for each:
 | Jackett       | `9117` | `http://<ip-address or FQDN>:9117` |
 | Flaresolverr  | `8191` | `http://<ip-address or FQDN>:8191` |
 | Homarr        | `7575` | `http://<ip-address or FQDN>:7575` |
+| Bookkeep      | `8000` | `http://<ip-address or FQDN>:8000` |
+| Bindery       | `8787` | `http://<ip-address or FQDN>:8787` |
+| Calibre       | `8082` | `http://<ip-address or FQDN>:8082` |
+| Calibre-Web   | `8083` | `http://<ip-address or FQDN>:8083` |
 
 ## 🔐 Configuration
 - Environment variables and secrets are set via the helper script and `.settings` files  

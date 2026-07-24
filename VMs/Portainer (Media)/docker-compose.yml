@@ -1,7 +1,8 @@
 networks:
   internal:
     driver: bridge
-    
+
+# Plex integration
 services:
   tautulli:
     image: ghcr.io/linuxserver/tautulli:latest
@@ -18,6 +19,7 @@ services:
       - PGID=${PGID}
       - TZ=${TZ}
 
+# Media Management
   jackett:
     image: linuxserver/jackett
     container_name: jackett
@@ -34,6 +36,7 @@ services:
       - PGID=${PGID}
       - TZ=${TZ}
 
+# TV Show Management
   sonarr:
     # build: /etc/environment
     #image: linuxserver/sonarr:latest
@@ -47,13 +50,14 @@ services:
       - "/mnt/plex1/plex/tv shows:/tv"
       - /mnt:/media
     ports:
-        - "8989:8989"
+        - 8989:8989
     restart: unless-stopped
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
       - TZ=${TZ}
 
+# Movie Management
   radarr:
     # build: /etc/environment
     #image: linuxserver/radarr:latest
@@ -74,6 +78,7 @@ services:
       - PGID=${PGID}
       - TZ=${TZ}
 
+# Media Request Management
   seerr:
     image: ghcr.io/seerr-team/seerr:latest
     init: true
@@ -89,6 +94,7 @@ services:
       - 5055:5055
     restart: unless-stopped
 
+# Media Indexing
   prowlarr:
     image: lscr.io/linuxserver/prowlarr:latest
     container_name: prowlarr
@@ -103,6 +109,7 @@ services:
       - 9696:9696
     restart: unless-stopped
     
+# Homepage/Dashboard
   homarr:
     image: ghcr.io/homarr-labs/homarr:latest
     container_name: homarr
@@ -113,8 +120,9 @@ services:
     environment:
       - SECRET_ENCRYPTION_KEY=${SECRET_ENCRYPTION_KEY}
     ports:
-      - '7575:7575'
+      - 7575:7575
 
+# Captcha Solver
   flaresolverr:
     image: ghcr.io/flaresolverr/flaresolverr:latest
     container_name: flaresolverr
@@ -124,4 +132,62 @@ services:
       - PGID=${PGID}
       - TZ=${TZ}
     ports:
-      - '8191:8191'
+      - 8191:8191
+
+# User Request Hub
+  shelfmark:
+    image: ghcr.io/calibrain/shelfmark:latest
+    container_name: shelfmark
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    ports:
+      - 8084:8084
+    restart: unless-stopped
+    volumes:
+      - /mnt/plex/books:/books # Default destination for book downloads
+      - ${USERDIR}/docker/shelfmark/config:/config # App configuration
+      - /mnt/plex/torrent-complete:/downloads
+
+# Main Library DB & Backend Ingestion Engine
+  calibre:
+    image: lscr.io/linuxserver/calibre:latest
+    container_name: calibre
+    restart: unless-stopped
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+      - PASSWORD=${PASSWORD} # Optional, set a password for the VNC server
+    volumes:
+      - ${USERDIR}/docker/calibre/config:/config
+      - /mnt/plex/books:/books      # Shared Library Directory
+      - ${USERDIR}/docker/calibre/import:/auto_add    # Map directly to Bindery's output folder
+    ports:
+      - 8080:8080 # Http VNC Desktop View
+      - 8081:8081 # Content Server
+      - 8082:8181 # HTTPS VNC Desktop View
+    shm_size: '1gb'
+
+# User Reading & UI Frontend
+  calibre-web:
+    image: lscr.io/linuxserver/calibre-web:latest
+    container_name: calibre-web
+    restart: unless-stopped
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+      - DOCKER_MODS=linuxserver/mod:calibre-web-kepubify # Auto Kobo formatting
+    volumes:
+      - ${USERDIR}/docker/calibre-web/config:/config
+      - /mnt/plex/books:/books      # Must match Calibre's main storage exactly
+    ports:
+      - 8083:8083
+    depends_on:
+      - calibre
+
+volumes:
+  postgres_data:
+  redis_data:
