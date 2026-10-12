@@ -49,14 +49,6 @@ scrape_configs:
     static_configs:
       - targets:
         - 'prometheus:9090'
-  
-  - job_name: 'speedtest'
-    metrics_path: /metrics
-    scrape_interval: 30m
-    scrape_timeout: 60s
-    static_configs:
-      - targets:
-        - 'speedtest-exporter:9798'
 
   - job_name: 'prometheus-router'
     static_configs:
@@ -75,19 +67,24 @@ scrape_configs:
     metrics_path: /metrics
     static_configs:
       - targets:
-          - 'svr-odin.asgard.onyxnet.lan:9617'
+          - '10.100.0.11:9617'
         labels:
           role: 'primary'
 
       - targets:
-          - 'svr-forseti.asgard.onyxnet.lan:9617'
+          - '10.100.0.29:9617'
         labels:
-          role: 'backup'
+          role: 'secondary'
 
-  - job_name: 'nodeexp'
-    static_configs:
       - targets:
-        - 'svc-skadi.asgard.onyxnet.lan:9100'
+          - '10.100.0.10:9617'
+        labels:
+          role: 'tertiary'
+
+      - targets:
+          - '10.100.0.28:9617'
+        labels:
+          role: 'quarternary'
 
   - job_name: 'pve'
     metrics_path: /pve
@@ -105,3 +102,189 @@ scrape_configs:
           - 'svr-vanir1.asgard.onyxnet.lan:9221'
         labels:
           cluster: 'vanir'
+
+  - job_name: 'blackbox-switches'
+    metrics_path: /probe
+    params:
+      module: [icmp_ping]
+    static_configs:
+      - targets:
+          - 10.10.0.8
+        labels:
+          switch: 'Upstairs'
+      - targets:
+          - 10.10.0.7
+        labels:
+          switch: 'Downstairs 1'
+      - targets:
+          - 10.10.0.6
+        labels:
+          switch: 'Downstairs 2'
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: blackbox:9115
+
+  - job_name: 'blackbox-aps'
+    metrics_path: /probe
+    params:
+      module: [icmp_ping]
+    static_configs:
+      - targets:
+          - 10.10.0.30
+        labels:
+          ap: 'upstairs'
+      - targets:
+          - 10.10.0.29
+        labels:
+          ap: 'Downstairs'
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: blackbox:9115
+
+  - job_name: 'blackbox-dns'
+    metrics_path: /probe
+    params:
+      module: [icmp_ping]
+    static_configs:
+      - targets:
+        - 10.100.0.9
+        labels:
+          dns: 'primary-vip'
+      - targets:
+        - 10.100.0.8
+        labels:
+          dns: 'secondary-vip'
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: blackbox:9115
+
+  - job_name: 'unifipoller'
+    scrape_interval: 30s
+    static_configs:
+      - targets:
+          - 'unpoller:9130'
+
+  - job_name: 'blackbox-vlan-gateways'
+    scrape_interval: 30s
+    scrape_timeout: 10s
+    metrics_path: /probe
+
+    params:
+      module: [icmp_ping]
+
+    static_configs:
+      - targets:
+          - 10.10.0.1
+        labels:
+          vlan: '10'
+          vlan_name: 'Valhalla'
+          purpose: 'Management'
+
+      - targets:
+          - 10.10.25.1
+        labels:
+          vlan: '25'
+          vlan_name: 'Jotunheim'
+          purpose: 'IoT'
+
+      - targets:
+          - 10.10.50.1
+        labels:
+          vlan: '50'
+          vlan_name: 'Helheim'
+          purpose: 'Security'
+
+      - targets:
+          - 192.168.0.1
+        labels:
+          vlan: '99'
+          vlan_name: 'Vanaheim'
+          purpose: 'Guest'
+
+      - targets:
+          - 10.10.10.1
+        labels:
+          vlan: '100'
+          vlan_name: 'Midgard'
+          purpose: 'Trusted'
+
+      - targets:
+          - 10.100.0.1
+        labels:
+          vlan: '1000'
+          vlan_name: 'Asgard'
+          purpose: 'Servers'
+
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+
+      - source_labels: [__param_target]
+        target_label: instance
+
+      - target_label: __address__
+        replacement: blackbox:9115
+
+  - job_name: 'blackbox-applications'
+    scrape_interval: 30s
+    scrape_timeout: 10s
+    metrics_path: /probe
+    params:
+      module: [http_2xx]
+    file_sd_configs:
+      - files:
+          - /prometheus/targets/applications-frontend.yml
+        refresh_interval: 30s
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: blackbox:9115
+
+  - job_name: 'blackbox-applications-direct'
+    scrape_interval: 30s
+    scrape_timeout: 10s
+    metrics_path: /probe
+    params:
+      module: [http_2xx]
+    file_sd_configs:
+      - files:
+          - /prometheus/targets/applications-direct.yml
+        refresh_interval: 30s
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: blackbox:9115
+  
+  - job_name: 'blackbox-applications-internal-tls'
+    metrics_path: /probe
+    params:
+      module: [http_internal_tls]
+    file_sd_configs:
+      - files:
+          - /prometheus/targets/applications-internal-tls.yml
+        refresh_interval: 30s
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: blackbox:9115

@@ -1,0 +1,31 @@
+- targets: ['http://10.100.0.54:81']
+  labels:
+    service: 'NPM'
+
+- targets: ['http://10.100.0.48:3000/']
+  labels:
+    service: 'Gitea'
+
+- targets: ['http://10.100.0.53:9000/']
+  labels:
+    service: 'Mealie'
+
+- targets: ['http://10.100.0.59:3001']
+  labels:
+    service: 'Uptime Kuma'
+
+- targets: ['http://10.100.0.49:80']
+  labels:
+    service: 'Game Panel'
+
+- targets: ['http://10.100.0.50:3000']
+  labels:
+    service: 'Convert'
+
+- targets: ['http://10.10.25.21:8123']
+  labels:
+    service: 'Home Assistant'
+
+- targets: ['http://10.100.0.38:3000/api/health']
+  labels:
+    service: 'Grafana'

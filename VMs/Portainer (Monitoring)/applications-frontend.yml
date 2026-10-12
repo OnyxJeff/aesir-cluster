@@ -1,0 +1,35 @@
+- targets: ['https://warden.onyxnethq.site']
+  labels:
+    service: 'Warden'
+
+- targets: ['http://10.100.0.54:81/']
+  labels:
+    service: 'NPM'
+
+- targets: ['https://git.onyxnethq.site']
+  labels:
+    service: 'Gitea'
+
+- targets: ['https://mealie.onyxnethq.site']
+  labels:
+    service: 'Mealie'
+
+- targets: ['https://uptime.onyxnethq.site']
+  labels:
+    service: 'Uptime Kuma'
+
+- targets: ['https://game.onyxnethq.site']
+  labels:
+    service: 'Game Panel'
+
+- targets: ['https://convert.onyxnethq.site']
+  labels:
+    service: 'Convert'
+
+- targets: ['https://hass.onyxnethq.site']
+  labels:
+    service: 'Home Assistant'
+
+- targets: ['https://grafana.onyxnethq.site']
+  labels:
+    service: 'Grafana'

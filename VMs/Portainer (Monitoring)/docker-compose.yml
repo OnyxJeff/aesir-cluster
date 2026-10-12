@@ -43,6 +43,9 @@ services:
       - GF_SECURITY_ADMIN_PASSWORD=uranium32
       - GF_PATHS_DATA=/var/lib/grafana
       - GF_SERVER_PORT=3000
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_ANONYMOUS_ORG_NAME=Main Org.
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Viewer
     volumes:
       - /$USERDIR/grafana:/var/lib/grafana
       - /$USERDIR/grafana/grafana.ini:/etc/grafana/grafana.ini:ro
@@ -68,6 +71,9 @@ services:
       - "9115:9115"
     networks:
       - monitoring
+    dns:
+      - 10.100.0.9
+      - 10.100.0.8
 
   # -----------------------------
   # PROXMOX EXPORTER
@@ -169,3 +175,29 @@ services:
       - "8126:8126"      # StatsD Admin
     volumes:
       - /$USERDIR/graphite:/opt/graphite/storage
+
+
+# -----------------------------
+# UNPOLLER (UNIFI POLLER)
+# -----------------------------
+  unpoller:
+    image: ghcr.io/unpoller/unpoller:latest
+    container_name: unpoller
+    restart: unless-stopped
+    ports:
+      - "9130:9130"
+    environment:
+      - UP_INFLUXDB_DISABLE=true
+      - UP_UNIFI_DYNAMIC=false
+      - UP_UNIFI_DEFAULT_URL=https://10.100.0.12:11443
+      - UP_UNIFI_DEFAULT_API_KEY=${UPOLL_API_KEY}
+      - UP_UNIFI_DEFAULT_VERIFY_SSL=false
+      - UP_UNIFI_DEFAULT_SAVE_SITES=true
+      - UP_UNIFI_DEFAULT_SAVE_EVENTS=true
+      - UP_UNIFI_DEFAULT_SAVE_ALARMS=true
+      - UP_UNIFI_DEFAULT_SAVE_ANOMALIES=true
+      - UP_UNIFI_DEFAULT_SAVE_DPI=true
+      - UP_PROMETHEUS_HTTP_LISTEN=0.0.0.0:9130
+      - UP_PROMETHEUS_NAMESPACE=unifipoller
+    networks:
+      - monitoring

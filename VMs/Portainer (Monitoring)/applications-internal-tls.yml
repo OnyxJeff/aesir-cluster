@@ -1,0 +1,3 @@
+- targets: ['https://10.100.0.45:8000/']
+  labels:
+    service: 'Warden'

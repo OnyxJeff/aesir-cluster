@@ -1,0 +1,180 @@
+Aesir-Cluster (HP ELITEDESK 800 G5 MINI)
+- CPU: Intel Core i5-9500T
+- RAM: 16GB DDR4
+- Storage:
+  - NVMe1: Patriot M.2 P300 128GB
+  - NVMe2: Patriot M.2 P300 128GB
+- NIC: 1Gb Intel
+- GPU: Intel-Integrated
+
+VMs/LXCs:
+- svc-warden
+  - LXC
+  - Bitwarden
+  - 🟢 Running
+  - Critical
+- svc-firefly
+  - LXC
+  - Firefly III
+  - 🔴 Stopped
+  - Rarely Used
+- svc-lube
+  - LXC
+  - LubeLogger
+  - 🔴 Stopped
+  - Rarely Used
+- svc-beszel
+  - LXC
+  - Beszel
+  - 🔴 Stopped
+  - Useful
+- svc-npm
+  - LXC
+  - Nginx Proxy Manager
+  🟢 Running
+  - Critical
+- svc-netbox
+  - LXC
+  - Netbox
+  - 🔴 Stopped
+  - Rarely Used
+- svc-skadi
+  - VM
+  - Portainer (monitoring stack)
+    - PROMETHEUS
+    - GRAFANA
+    - BLACKBOX EXPORTER
+    - PROXMOX EXPORTER
+    - EXPORTARR (ARR METRICS)
+    - SPEEDTEST EXPORTER
+    - GRAPHITE EXPORTER
+  - 🔴 Stopped
+  - Useful
+- svc-bragi
+  - VM
+  - Portainer (media stack)
+    - tautulli
+    - jackett
+    - sonarr
+    - radarr
+    - seerr
+    - prowlarr
+    - homarr
+    - flaresolverr
+    - shelfmark
+    - calibre
+    - calibre-web
+  - 🟢 Running
+  - Critical
+- svc-convert
+  - LXC
+  - ConvertX
+  - 🟢 Running
+  - Rarely Used
+- svc-uptime
+  - LXC
+  - Uptime Kuma
+  - 🟢 Running
+  - Useful
+- svc-gitea
+  - LXC
+  - Gitea
+  - 🟢 Running
+  - Useful
+- svc-home
+  - LXC
+  - HomeBox
+  - 🔴 Stopped
+  - Probably retire
+    - For now until I get a scanner and printer for barcodes
+- svc-mealie
+  - LXC
+  - Mealie
+  - 🔴 Stopped
+  - Rarely used
+    - would like to use more and give access to family/friends
+- svc-panel
+  - LXC
+  - Pelican Panel
+  - 🔴 Stopped
+  - Rarely used
+    - would like to use for Minecraft
+- svc-pihole
+  - LXC
+  - PiHole (secondary)
+  - 🟢 Running
+  - Critical
+
+Vanir-Cluster (Intel NUC5i5MYHE)
+- CPU: Intel Core i5-5300U
+- RAM: 16GB DDR4 RAM
+- Storage:
+  - Samsung 860EVO 250GB SSD
+- NIC: 1Gb Intel
+- GPU: Intel-Integrated
+
+VMs/LXCs:
+- hml-pihole
+  - LXC
+  - Pihole (quaternary)
+  - 🟢 Running
+  - Critical
+- hml-streamer
+  - LXC
+  - Debian-based custom ffmpeg NOC dashboard twitch stream (showing Grafana)
+  - 🔴 Stopped
+  - Rarely used
+    - would leave running once svc-skadi is up
+- hml-simc
+  - LXC
+  - auto-downloader for SimulationCraft set on a cronjob to scan for new updates of SimulationCraft and download to shared storage
+  - 🟢 Running
+  - Useful
+    - Could be turning into an Ansible automation attached to svr-Valkyrie (my potentpi4 [RPi4b] Ansible controller)
+- hml-skuld
+  - LXC
+  - ProxMox DataCenter Manager
+  - 🟢 Running
+  - Critical
+- hml-spool
+  - LXC
+  - Spoolman
+  - 🔴 Stopped
+  - Probably retire
+    - Until I get my new 3D printer (current one does not work)
+- hml-scanopy
+  - LXC
+  - Scanopy
+  - 🔴 Stopped
+  - Probably retire
+- hml-pf2etools
+  - LXC
+  - Pathfinder 2e Tools
+  - 🔴 Stopped
+  - Probably retire
+    - online tools just as good if not better
+- hml-craft
+  - LXC
+  - Pelican Wings (Minecraft)
+  - 🔴 Stopped
+  - Useful
+    - Use to host Minecraft
+    - can create more than one Pelican Wings LXC to allow game seperation and resource allocation by game and not just by server/map
+- hml-zippy
+  - LXC
+  - Zipline
+  - 🔴 Stopped
+  - Probably retire
+    - never use
+- hml-netboot
+  - LXC
+  - Netboot.XYZ
+  - 🟢 Running
+  - Useful
+    - almost critical, but requires PXE boot on device over network
+- hml-workstation
+  - VM
+  - Windows 11 VM for RDP on my Linux laptop (if windows is needed while away on business)
+  - 🔴 Stopped
+  - Rarely used
+    - currectly crashes and causes node Vanir1 to go offline so unusable

@@ -7,9 +7,20 @@ modules:
       valid_status_codes: []  # Empty means any 2xx is valid
       follow_redirects: true
       preferred_ip_protocol: ip4
+      tls_config:
+        insecure_skip_verify: false
   icmp_ping:
     prober: icmp
     timeout: 5s
     icmp:
       preferred_ip_protocol: ip4
       ip_protocol_fallback: true
+  http_internal_tls:
+    prober: http
+    timeout: 5s
+    http:
+      method: GET
+      follow_redirects: true
+      preferred_ip_protocol: ip4
+      tls_config:
+        insecure_skip_verify: true
